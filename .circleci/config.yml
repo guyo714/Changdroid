@@ -16,6 +16,9 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - store_artifacts:
+          path: /tmp/artifact-1
+          destination: artifact-file
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
