@@ -6,6 +6,13 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 orbs:
   android: circleci/android@1.0.3
+parameters:
+  image-tag:
+    type: string
+    default: "latest"
+  workingdir:
+    type: string
+    default: "~/main"
 jobs:
   build-android:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -15,20 +22,21 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - checkout
-      - run:
-          name: "Start building android..."
-          command: "echo Start building android..."
-      - run:
-          name: Build debug APK and release APK
-          command: |
-            ./gradlew :app:assembleDebug
-      - run:
-          name: Build prod APK and release APK
-          command: |
-            ./gradlew :app:assembleRelease       
-      - store_artifacts:
-          path: app/build/outputs/apk
+      - run: echo "whatever parameter == << pipeline.parameters.workingdir >>"
+      # - checkout
+      # - run:
+      #     name: "Start building android..."
+      #     command: "echo Start building android..."
+      # - run:
+      #     name: Build debug APK and release APK
+      #     command: |
+      #       ./gradlew :app:assembleDebug
+      # - run:
+      #     name: Build prod APK and release APK
+      #     command: |
+      #       ./gradlew :app:assembleRelease       
+      # - store_artifacts:
+      #     path: app/build/outputs/apk
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
