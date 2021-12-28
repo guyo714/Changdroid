@@ -22,7 +22,7 @@ jobs:
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - run: echo "whatever parameter == << parameters.workingdir >>"
+      - run: echo "whatever parameter == << pipeline.parameters.workingdir >>"
       # - checkout
       # - run:
       #     name: "Start building android..."
@@ -41,5 +41,8 @@ jobs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build-android-workflow:
+    jobs:
+      - build-android
+  run-android-workflow:
     jobs:
       - build-android
